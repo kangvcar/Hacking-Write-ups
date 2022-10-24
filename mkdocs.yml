@@ -1,0 +1,128 @@
+site_name: Hacking Write-ups
+site_description: A collection of awesome write-ups from topics ranging from CVE, vulnHub, CTFs, Hack the box walkthroughs, real-life encounters and everything which can help other enthusiasts learn.
+site_author: KK & HZH
+repo_url: https://github.com/kangvcar/Hacking-Write-ups
+repo_name: Hacking-Write-ups
+#edit_uri: ""
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: pink
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  language: zh
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.tabs.sticky
+#    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.expand
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+    - header.autohide
+
+plugins:
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: date
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/kangvcar/Hacking-Write-ups
+    - icon: fontawesome/brands/bilibili
+      link: https://space.bilibili.com/43929500
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/channel/UCH9jvvcqYaNSCMG6OIRwxvg
+
+markdown_extensions:
+
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+
+copyright: Copyright &copy; 2020 - 2022 Hacking Write-ups
+
+nav:
+  - Home:
+    - 简介: index.md
+    - 贡献指南: contribute.md
+    - 讨论交流: discussion.md
+    - Changelog: changelog.md
+    - License: license.md
+  - CVEs:
+      - cves/index.md
+      - CVE-2022:
+        - cves/CVE-2022/CVE-2022-25411.md
+        - cves/CVE-2022/CVE-2022-25488.md
+        - cves/CVE-2022/CVE-2022-25578.md
+        - cves/CVE-2022/CVE-2022-26201.md
+        - cves/CVE-2022/CVE-2022-26965.md
+        - cves/CVE-2022/CVE-2022-28060.md
+        - cves/CVE-2022/CVE-2022-28512.md
+        - cves/CVE-2022/CVE-2022-28525.md
+        - cves/CVE-2022/CVE-2022-29464.md
+        - cves/CVE-2022/CVE-2022-30887.md
+        - cves/CVE-2022/CVE-2022-32991.md
+      - CVE-2017:
+        - cves/CVE-2017/CVE-2017-0143.md
+  - VulnHub:
+      - vulnhub/index.md
+      - vulnhub/Jarbas-1.md
+  - HackTheBox:
+      - hackthebox/index.html
+
