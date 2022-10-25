@@ -2,10 +2,11 @@
 
 ## Hacking Write-ups
 
-### 2022-10-25
+### 2022-10-26
 - [x] 更换站点字体，引用外部字体 [LxgwWenKai](https://github.com/lxgw/LxgwWenKai)
 - [ ] 添加常用的 Markdown 语法使用说明，参考 [MkDocs Markdown Reference](https://squidfunk.github.io/mkdocs-material/reference/)
-- [x] 更新部署脚本
+- [x] 更新部署脚本，删除 `site/` 目录，避免冲突
+- [x] 使用新域名 [https://wp.hvvyxs.com](https://wp.hvvyxs.com)
 
 ### 2022-10-24
 - [x] 创建站点
