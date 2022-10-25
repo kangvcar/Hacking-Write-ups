@@ -25,9 +25,9 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  font:
-    text: Roboto
-    code: Roboto Mono
+#  font:
+#    text: Roboto
+#    code: Roboto Mono
 
   language: zh
   icon:
@@ -61,6 +61,9 @@ extra:
       link: https://space.bilibili.com/43929500
     - icon: fontawesome/brands/youtube
       link: https://www.youtube.com/channel/UCH9jvvcqYaNSCMG6OIRwxvg
+
+extra_css:
+  - stylesheets/extra.css
 
 markdown_extensions:
 

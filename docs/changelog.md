@@ -3,7 +3,7 @@
 ## Hacking Write-ups
 
 ### 2022-10-25
-- [ ] 更换站点字体，引用外部字体 [LxgwWenKai](https://github.com/lxgw/LxgwWenKai)
+- [x] 更换站点字体，引用外部字体 [LxgwWenKai](https://github.com/lxgw/LxgwWenKai)
 - [ ] 添加常用的 Markdown 语法使用说明，参考 [MkDocs Markdown Reference](https://squidfunk.github.io/mkdocs-material/reference/)
 - [ ] 更新部署脚本
 
