@@ -1,9 +1,10 @@
 site_name: Hacking Write-ups
+site_url: https://hacking-write-ups.vercel.app
 site_description: A collection of awesome write-ups from topics ranging from CVE, vulnHub, CTFs, Hack the box walkthroughs, real-life encounters and everything which can help other enthusiasts learn.
 site_author: KK & HZH
 repo_url: https://github.com/kangvcar/Hacking-Write-ups
 repo_name: Hacking-Write-ups
-#edit_uri: ""
+edit_uri: edit/master/docs/
 theme:
   name: material
   palette:
@@ -46,7 +47,8 @@ theme:
     - header.autohide
 
 plugins:
-  - search
+  - search:
+    indexing: full
   - git-revision-date-localized:
       enable_creation_date: true
       type: date
@@ -124,5 +126,5 @@ nav:
       - vulnhub/index.md
       - vulnhub/Jarbas-1.md
   - HackTheBox:
-      - hackthebox/index.html
+      - hackthebox/index.md
 
