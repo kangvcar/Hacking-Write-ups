@@ -128,6 +128,7 @@ nav:
   - VulnHub:
       - vulnhub/index.md
       - vulnhub/Jarbas-1.md
+      - vulnhub/Wakanda-1.0.md
   - HackTheBox:
       - hackthebox/index.md
 
