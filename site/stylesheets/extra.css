@@ -1,9 +1,0 @@
-@font-face {
-  font-family: "LXGWWenKai-Regular";
-  src: url("https://cdn.jsdelivr.net/npm/lxgwwenkai-fontface@1.0.0/fonts/lxgwwenkai/LXGWWenKai-Regular.ttf");
-}
-
-:root {
-  --md-text-font: "LXGWWenKai-Regular";
-  --md-code-font: "LXGWWenKai-Regular";
-}
