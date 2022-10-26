@@ -88,3 +88,10 @@ Hacking Write-ups 项目欢迎并依赖于开源社区中开发人员和用户�
 6. 等待审核，如果有问题，我们会在评论中回复您。
 7. 如果没有问题，我们会合并您的代码。
 8. 感谢您的贡献！
+
+## MKDocs 命令
+
+* `mkdocs new [dir-name]` - Create a new project.
+* `mkdocs serve` - Start the live-reloading docs server.
+* `mkdocs build` - Build the documentation site.
+* `mkdocs -h` - Print help message and exit.
