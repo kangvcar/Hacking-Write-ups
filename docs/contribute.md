@@ -16,11 +16,22 @@ Hacking Write-ups 项目欢迎并依赖于开源社区中开发人员和用户�
 
 ## 项目结构
 
-- `docs`：存放文档的目录。
-- `docs/cves`：存放 CVE 的目录。
-- `docs/vulnhub`：存放 VulnHub 的目录。
-- `docs/hackthebox`：存放 HackTheBox 的目录。
-- `images`：每个MD文件的同级目录都有一个 `images` 目录，用于存放图片。
+    mkdocs.yml          # 项目配置文件
+    requirements.txt    # 项目依赖
+    docs/
+        index.md        # 项目主页
+        ...             # Other markdown pages, images and other files.
+        cves/
+            2022/
+                images/
+                    CVE-2022-XXXX-1.png   # CVE-2022-XXXX 的图片
+                CVE-2022-XXXX.md          # CVE-2022-XXXX write-up
+        vulnhub/
+            images/
+                Jarbas-1-1.png   # Jarbas-1 的图片
+            Jarbas-1.md          # vulnhub Jarbas-1 write-up
+        hackthebox/
+            ...
 
 ## 添加文章的步骤
 
@@ -58,17 +69,6 @@ Hacking Write-ups 项目欢迎并依赖于开源社区中开发人员和用户�
        - CVE-2022:
          - cves/CVE-2022/CVE-2022-25411.md
          - cves/CVE-2022/CVE-2022-25488.md
-         - cves/CVE-2022/CVE-2022-25578.md
-         - cves/CVE-2022/CVE-2022-26201.md
-         - cves/CVE-2022/CVE-2022-26965.md
-         - cves/CVE-2022/CVE-2022-28060.md
-         - cves/CVE-2022/CVE-2022-28512.md
-         - cves/CVE-2022/CVE-2022-28525.md
-         - cves/CVE-2022/CVE-2022-29464.md
-         - cves/CVE-2022/CVE-2022-30887.md
-         - cves/CVE-2022/CVE-2022-32991.md
-       - CVE-2017:
-         - cves/CVE-2017/CVE-2017-0143.md
      - VulnHub:
        - vulnhub/index.md
        - vulnhub/Jarbas-1.md
@@ -79,22 +79,12 @@ Hacking Write-ups 项目欢迎并依赖于开源社区中开发人员和用户�
 6. 更多支持的Markdown 语法请参考 [MkDocs Markdown Reference](https://squidfunk.github.io/mkdocs-material/reference/)。
 
 ## 如何贡献
-1. 安装 [MkDocs](https://www.mkdocs.org/)。
 
-    ```bash
-    pip install mkdocs
-    pip install mkdocs-material
-    pip install mkdocs-git-revision-date-localized-plugin
-    ```
-   
-2. Fork [本项目](https://github.com/kangvcar/Hacking-Write-ups)，然后克隆到本地，例如 `git clone https://github.com/kangvcar/Hacking-Write-ups.git` 。
-3. 创建一个新的分支，例如 `git checkout -b my-new-article` 。
-4. 添加文章，参考上面的[添加文章的步骤](#_4)。
+1. Fork [本项目](https://github.com/kangvcar/Hacking-Write-ups)，然后克隆到本地，例如 `git clone https://github.com/kangvcar/Hacking-Write-ups.git` 。
+2. 添加文章，参考上面的[添加文章的步骤](#_4)。
 3. 提交您的更改，例如 `git commit -am 'Add article title'` 。
-4. 将您的分支推送到 GitHub，例如 `git push origin my-new-article` 。
+4. 将您的分支推送到 GitHub，例如 `git push` 。
 5. 然后创建一个Pull Request。
 6. 等待审核，如果有问题，我们会在评论中回复您。
 7. 如果没有问题，我们会合并您的代码。
-8. 您的代码将会在下一个版本中发布。
-9. 感谢您的贡献！
-
+8. 感谢您的贡献！
