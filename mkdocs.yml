@@ -45,6 +45,7 @@ theme:
     - search.share
     - toc.follow
     - header.autohide
+    - content.code.annotate
 
 plugins:
   - search
@@ -113,6 +114,7 @@ nav:
     - 简介: index.md
     - 贡献指南: contribute.md
     - 讨论交流: discussion.md
+    - Markdown 语法: markdown.md
     - Changelog: changelog.md
     - License: license.md
   - CVEs:
