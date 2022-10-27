@@ -2,9 +2,9 @@
 
 ## Infomation
 
-**Jarbas** is a vulnerable machine created by [VulnHub](https://www.vulnhub.com/entry/jarbas-1,232/). 
+**Jarbas 1** is a vulnerable machine created by [VulnHub](https://www.vulnhub.com/entry/jarbas-1,232/). 
 
-- [合天网安](https://www.hetianlab.com/expc.do?ce=b06710c4-ecd4-41ea-ab7b-c3602df06219)
+- [合天网安 VulnHub渗透测试实战靶场Jarbas 1](https://www.hetianlab.com/expc.do?ce=b06710c4-ecd4-41ea-ab7b-c3602df06219)
 
 ## 思路
 
