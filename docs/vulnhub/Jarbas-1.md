@@ -52,6 +52,7 @@ msfconsole 也是一个很好的工具，可以直接用来找漏洞，或者生
 ???+ tip "利用原理"
 
     利用程序自身的命令执行参数，如：
+
     1. find 命令的`-exec`功能
     2. vim 命令的`:shell`功能
     3. 老版 nmap 交互界面的!sh功能
@@ -68,4 +69,10 @@ msfconsole 也是一个很好的工具，可以直接用来找漏洞，或者生
 2. 然后将这个反弹shell指令写入到目标机的定时任务中
 3. 等待定时任务执行，就可以得到一个root shell
 
+## 总结
 
+- 利用了 msf 的 `exploit/multi/http/jenkins_script_console`
+- 如果目标机器部署了网站，这是一个很好的入口
+- 通过 /etc/passwd 文件创建特权用户
+- 通过定时任务执行命令提权
+- 巧用 find 命令的 `-exec` 参数来执行命令
