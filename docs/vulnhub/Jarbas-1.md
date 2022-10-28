@@ -77,3 +77,4 @@ msfconsole 也是一个很好的工具，可以直接用来找漏洞，或者生
 - 通过定时任务执行命令提权
 - 巧用 find 命令的 `-exec` 参数来执行命令
 - 目录扫描工具 dirb
+- 攻击成功后在meterpreter会话中执行`shell`来获得一个shell会话，然后可以使用Python来实现一个交互tty `import pty;pty.spawn("/bin/bash")`
