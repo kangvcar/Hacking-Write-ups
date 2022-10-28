@@ -182,3 +182,5 @@ meterpreter > shell
 - [CVE-2016-5195漏洞分析](https://www.anquanke.com/post/id/84772/)
 - [CVE-2016-5195 PoC](https://github.com/gbonacini/CVE-2016-5195/blob/master/dcow.cpp)
 - [CVE-2018-7600漏洞分析](https://www.cnblogs.com/4thrun/p/15148584.html)
+- [Linux提权-利用SUID提权](https://blog.csdn.net/fly_hps/article/details/80428173)
+- [合天网安-脏牛提取实验](http://www.hetianlab.com/expc.do?ec=ECID9d6c0ca797abec2016103117181500001)
