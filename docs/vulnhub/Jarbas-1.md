@@ -8,7 +8,7 @@
 
 ## 思路
 
-### 0x01
+### 0x01 扫描
 
 善用 nmap
 
@@ -23,7 +23,7 @@
 
 尝试用找到的登录信息登录一些开放的服务，比如ssh，ftp，mysql，网站后台等等。
 
-### 0x02
+### 0x02 分析
 
 网站也是一个很好的入口，如果有漏洞的话，可以直接拿到shell。
 
@@ -36,7 +36,7 @@ msfconsole 也是一个很好的工具，可以直接用来找漏洞，或者生
 
 这个镜像就是使用 msf 来反弹shell的。
 
-### 0x03
+### 0x03 提取
 
 获得目标机器的权限之后，就可以开始提权了。
 
@@ -77,4 +77,4 @@ msfconsole 也是一个很好的工具，可以直接用来找漏洞，或者生
 - 通过定时任务执行命令提权
 - 巧用 find 命令的 `-exec` 参数来执行命令
 - 目录扫描工具 dirb
-- 攻击成功后在meterpreter会话中执行`shell`来获得一个shell会话，然后可以使用Python来实现一个交互tty `import pty;pty.spawn("/bin/bash")`
+- 攻击成功后在meterpreter会话中执行`shell`来获得一个shell会话，然后可以使用Python来实现一个交互tty `python -c 'import pty;pty.spawn("/bin/bash");'`
