@@ -1,0 +1,3 @@
+# IMF
+
+IMF is a vulnerable machine created by [VulnHub](https://www.vulnhub.com/entry/imf-1,313/). This machine is a Windows 7 machine with a single user. The machine is vulnerable to a remote code execution vulnerability in the Windows Print Spooler service. This vulnerability is known as [CVE-2017-0261](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0261). This vulnerability was patched in the [MS17-010](https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-0261) security update.
