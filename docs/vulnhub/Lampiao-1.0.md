@@ -28,14 +28,16 @@ Lampião 1.0 是一个难度为初级的Boot2root/CTF挑战
 
 找到用户名就可以尝试一下密码爆破了，首先制作密码字典，然后使用 `hydra` 进行爆破
 
-其中制作密码字典的工具有很多，比如：
+其中制作密码字典的工具有很多，这里使用 `cewl` 来制作密码字典 `cewl -w target.txt http://192.168.128.135:1898/?q=node/1`
 
-- [CeWL](https://www.kali.org/tools/cewl/): 是个 Kali 中的工具，爬取网站并提取独立单词的列表。他它也可以提供每次单词的重复次数，保存结果到文件，使用页面的元数据。
-- [crunch](https://www.kali.org/tools/crunch/): 是个 Kali 中的工具，这是基于由用户提供的字符集合的生成器，它使用这个集合来生成所有可能的组合。。
-- [Wordlist Maker(WLM)](http://www.pentestplus.co.uk/wlm.htm): WLM 能够基于字符集来生成单词列表，也能够从文本文件和网页中提取单词。
-- [Common User Password Profiler (CUPP)](https://github.com/Mebus/cupp): 这个工具可以使用单词列表来为常见的用户名分析可能的密码，以及从数据库下载单词列表和默认密码
+??? tip "字典制作工具"
 
-这里使用 `cewl` 来制作密码字典 `cewl -w target.txt http://192.168.128.135:1898/?q=node/1`
+    - [CeWL](https://www.kali.org/tools/cewl/): 是个 Kali 中的工具，爬取网站并提取独立单词的列表。他它也可以提供每次单词的重复次数，保存结果到文件，使用页面的元数据。
+    - [crunch](https://www.kali.org/tools/crunch/): 是个 Kali 中的工具，这是基于由用户提供的字符集合的生成器，它使用这个集合来生成所有可能的组合。。
+    - [Wordlist Maker(WLM)](http://www.pentestplus.co.uk/wlm.htm): WLM 能够基于字符集来生成单词列表，也能够从文本文件和网页中提取单词。
+    - [Common User Password Profiler (CUPP)](https://github.com/Mebus/cupp): 这个工具可以使用单词列表来为常见的用户名分析可能的密码，以及从数据库下载单词列表和默认密码
+
+
 
 然后使用 `hydra` 进行爆破 `hydra -L username.txt -P target.txt -vV -f 192.168.128.135 -s 1898 http-post-form "/?q=node/1&destination=node/1:name=^USER^&pass=^PASS^&form_build_id=form-WKAqjKEpImQ1oLNhJtypMBxwHeQY409y_3QCEB5trJY&form_id=user_login_block&op=Log+in:Sorry, unrecognized username or password."`
 
@@ -66,7 +68,7 @@ Lampião 1.0 是一个难度为初级的Boot2root/CTF挑战
     - `service`   要破解的服务 (支持的协议在上面已经给出了)
     - `OPT`       一些服务模块支持额外的输入 (参数 -U 可查看模块帮助)
 
-web 密码破解出来后登录时发现登录此时超限了，白忙活了
+web 密码破解出来后登录时发现登录次数超限了，白忙活了
 
 换个思路试试破解 ssh 密码，同样是用 hydra 进行爆破，`hydra -L username.txt -P target.txt -f -e nsr -t 8 ssh://192.168.128.135`
 
@@ -78,19 +80,19 @@ ssh 密码破解成功后，登录 shh，接下来就是提取了
 
 ### 第一种
 
-Linux内核逃逸 (CVE-2017-1000112) 提权，由于内核版本 < 4.12.3，所以可以利用此漏洞提权。
+[Linux内核逃逸 (CVE-2017-1000112) 提权](#linux-cve-2017-1000112)，由于内核版本 < 4.12.3，所以可以利用此漏洞提权。
 
 但在提权过程中需要编译c文件，但是在此机器上没有编译器，所以需要先上传编译器，这里使用的是 gcc，上传后编译 c 文件，然后执行即可提权成功。
 
 ### 第二种
 
-Dirty COW (CVE-2016-5195) 提权，由于内核版本 >= 2.6.22，所以可以利用此漏洞提权。
+[Dirty COW (CVE-2016-5195) 提权](#dirty-cow-cve-2016-5195)，由于内核版本 >= 2.6.22，所以可以利用此漏洞提权。
 
 具体操作步骤参照下文总结部分。
 
 ### 第三种
 
-Drupal Drupalgeddon 2 远程代码执行漏洞 (CVE-2018-7600) 提权，由于在最开始扫描结果中发现了 Drupal，所以可以利用此漏洞提权。
+[Drupal Drupalgeddon 2 远程代码执行漏洞 (CVE-2018-7600) 提权](#drupal-drupalgeddon-2-cve-2018-7600)，由于在最开始扫描结果中发现了 Drupal，所以可以利用此漏洞提权。
 
 具体操作步骤参照下文总结部分。
 
