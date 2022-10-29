@@ -139,6 +139,7 @@ nav:
       - vulnhub/Wakanda-1.0.md
       - vulnhub/Lampiao-1.0.md
       - vulnhub/imf.md
+      - vulnhub/WordPress2.md
   - HackTheBox:
       - hackthebox/index.md
 
