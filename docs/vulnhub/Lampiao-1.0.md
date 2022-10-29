@@ -1,6 +1,6 @@
 # Lampiao 1.0
 
-# Infomation
+## Infomation
 
 **Lampiao 1.0** is a vulnerable machine created by [VulnHub](https://www.vulnhub.com/entry/lampiao-1,249/). 
 
@@ -10,16 +10,16 @@ Lampião 1.0 是一个难度为初级的Boot2root/CTF挑战
 
 - [合天网安 VulnHub渗透测试实战靶场Lampiao 1.0](https://www.hetianlab.com/expc.do?ec=ECID2be0-d959-4d2b-8909-2db854f3c0a2)
 
-# 思路
+## 思路
 
-## 0x01 扫描
+### 0x01 扫描
 
 - `nmap -sP 192.168.128.1/24` 找到主机
 - `nmap -A 192.168.128.135` 找到开放端口和服务
 
 扫描出来 Drupal 是一个突破口，后面看看能不能利用
 
-## 0x02 分析
+### 0x02 分析
 
 打开扫描出来的网站看看有没有发现
 
@@ -74,23 +74,23 @@ web 密码破解出来后登录时发现登录次数超限了，白忙活了
 
 ssh 密码破解成功后，登录 shh，接下来就是提取了
 
-## 0x03 提权
+### 0x03 提权
 
 尝试利用SUID提权，比如nmap，vim，less等，发现均没有成功。
 
-### 第一种
+#### 第一种
 
 [Linux内核逃逸 (CVE-2017-1000112) 提权](#linux-cve-2017-1000112)，由于内核版本 < 4.12.3，所以可以利用此漏洞提权。
 
 但在提权过程中需要编译c文件，但是在此机器上没有编译器，所以需要先上传编译器，这里使用的是 gcc，上传后编译 c 文件，然后执行即可提权成功。
 
-### 第二种
+#### 第二种
 
 [Dirty COW (CVE-2016-5195) 提权](#dirty-cow-cve-2016-5195)，由于内核版本 >= 2.6.22，所以可以利用此漏洞提权。
 
 具体操作步骤参照下文总结部分。
 
-### 第三种
+#### 第三种
 
 [Drupal Drupalgeddon 2 远程代码执行漏洞 (CVE-2018-7600) 提权](#drupal-drupalgeddon-2-cve-2018-7600)，由于在最开始扫描结果中发现了 Drupal，所以可以利用此漏洞提权。
 
@@ -98,9 +98,9 @@ ssh 密码破解成功后，登录 shh，接下来就是提取了
 
 
 
-# 总结
+## 总结
 
-## Linux内核逃逸 (CVE-2017-1000112) 提权
+### Linux内核逃逸 (CVE-2017-1000112) 提权
 
 ???+ tip "Linux内核逃逸 (CVE-2017-1000112)"
 
@@ -110,7 +110,7 @@ ssh 密码破解成功后，登录 shh，接下来就是提取了
 
 [PoC](https://github.com/xairy/kernel-exploits/blob/master/CVE-2017-1000112/poc.c){ .md-button }
 
-### Installation:
+#### Installation:
 
 Compile the PoC:
 
@@ -122,7 +122,7 @@ Run the PoC:
 - `./poc` # done, should be root now
 
 
-## Dirty COW (CVE-2016-5195) 提权
+### Dirty COW (CVE-2016-5195) 提权
 
 ???+ tip "Dirty COW"
 
@@ -132,7 +132,7 @@ Run the PoC:
 
 [PoC](https://github.com/gbonacini/CVE-2016-5195){ .md-button }   [Exploit](https://www.exploit-db.com/exploits/40847){ .md-button }
 
-### Installation:
+#### Installation:
 
 Compile the program: 
 
@@ -154,7 +154,7 @@ Online help:
 
 - `./dcow -h`
 
-## Drupal Drupalgeddon 2 远程代码执行漏洞 (CVE-2018-7600) 提权
+### Drupal Drupalgeddon 2 远程代码执行漏洞 (CVE-2018-7600) 提权
 
 Drupal是使用PHP语言编写的开源内容管理框架（CMF），它由由内容管理系统和PHP开发框架共同构成，在GPL2.0及更新协议下发布。连续多年荣获全球最佳CMS大奖，是基于PHP语言最著名的WEB应用程序。
 
@@ -166,7 +166,7 @@ Drupal未对表单请求数据做严格过滤，导致攻击者可以将恶意�
 
 [MSF](https://www.rapid7.com/db/modules/exploit/unix/webapp/drupal_drupalgeddon2/){ .md-button }
 
-### Exploit
+#### Exploit
 
 ```shell
 MSF: use unix/webapp/drupal_drupalgeddon2
@@ -177,7 +177,7 @@ meterpreter > shell
 ```
 
 
-# 参考
+## 参考
 
 - [CVE-2017-1000112漏洞分析](https://www.anquanke.com/post/id/92755#h2-18)
 - [CVE-2017-1000112 PoC](https://github.com/xairy/kernel-exploits/blob/master/CVE-2017-1000112/poc.c)
