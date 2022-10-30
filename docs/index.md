@@ -9,3 +9,5 @@ Hacking Write-ups 目前包含一下模块：
 - [CVE](./cves/index.md)
 - [VulnHub](./vulnhub/index.md)
 - [HackTheBox](./hackthebox/index.md)
+- [Blogs](./blogs/index.md)
+- [Tools](./tools/index.md)

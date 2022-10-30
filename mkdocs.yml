@@ -144,4 +144,8 @@ nav:
       - vulnhub/WordPress2.md
   - HackTheBox:
       - hackthebox/index.md
+  - Blogs:
+      - blogs/index.md
+  - Tools:
+      - tools/index.md
 
