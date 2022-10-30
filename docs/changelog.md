@@ -2,6 +2,12 @@
 
 ## Hacking Write-ups
 
+### 2022-10-30
+- [x] 添加栏目 Blogs，Tools
+- [x] 更新 CVE-2016-5195, IMF, Jarbas 1.0, Lampiao 1.0, Wakanda 1.0, WordPress2
+- [x] 更新 index.md
+- [x] 添加 [Telegram 频道](https://t.me/s/hackingwp)
+
 ### 2022-10-26
 - [x] 更换站点字体，引用外部字体 [LxgwWenKai](https://github.com/lxgw/LxgwWenKai)
 - [x] 添加常用的 Markdown 语法使用说明，参考 [MkDocs Markdown Reference](https://squidfunk.github.io/mkdocs-material/reference/)
