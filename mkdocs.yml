@@ -137,12 +137,12 @@ nav:
         - CVE-2016-5195: cves/CVE-2016/CVE-2016-5195.md
   - VulnHub:
       - vulnhub/index.md
-      - vulnhub/Jarbas-1.md
-      - vulnhub/Wakanda-1.0.md
-      - vulnhub/Lampiao-1.0.md
-      - vulnhub/imf.md
-      - vulnhub/WordPress2.md
-      - vulnhub/Nezuko.md
+      - Jarbas: vulnhub/Jarbas-1.md
+      - Wakanda: vulnhub/Wakanda-1.0.md
+      - Lampiao: vulnhub/Lampiao-1.0.md
+      - IMF: vulnhub/imf.md
+      - WordPress2: vulnhub/WordPress2.md
+      - Nezuko: vulnhub/Nezuko.md
   - HackTheBox:
       - hackthebox/index.md
   - Blogs:
