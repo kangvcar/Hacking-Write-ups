@@ -14,7 +14,7 @@ Vulnhub 是一个提供各种漏洞环境的靶场平台，大部分环境是做
 - [ ] Vulnhub - Node 1.0
 - [ ] Vulnhub - Ch4inrulz 1.0.1
 - [X] [Vulnhub - Wakanda](Wakanda-1.0.md)
-- [X] Vulnhub - [Nezuko 1.0](Nezuko.md)
+- [X] [Vulnhub - Nezuko 1.0](Nezuko.md)
 - [ ] Vulnhub - XXE Lab
 - [ ] Vulnhub - Drupal
 - [ ] Vulnhub - Joomla
