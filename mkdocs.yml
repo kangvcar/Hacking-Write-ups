@@ -120,21 +120,21 @@ nav:
   - CVEs:
       - cves/index.md
       - CVE-2022:
-        - cves/CVE-2022/CVE-2022-25411.md
-        - cves/CVE-2022/CVE-2022-25488.md
-        - cves/CVE-2022/CVE-2022-25578.md
-        - cves/CVE-2022/CVE-2022-26201.md
-        - cves/CVE-2022/CVE-2022-26965.md
-        - cves/CVE-2022/CVE-2022-28060.md
-        - cves/CVE-2022/CVE-2022-28512.md
-        - cves/CVE-2022/CVE-2022-28525.md
-        - cves/CVE-2022/CVE-2022-29464.md
-        - cves/CVE-2022/CVE-2022-30887.md
-        - cves/CVE-2022/CVE-2022-32991.md
+        - CVE-2022-25411: cves/CVE-2022/CVE-2022-25411.md
+        - CVE-2022-25488: cves/CVE-2022/CVE-2022-25488.md
+        - CVE-2022-25578: cves/CVE-2022/CVE-2022-25578.md
+        - CVE-2022-26201: cves/CVE-2022/CVE-2022-26201.md
+        - CVE-2022-26965: cves/CVE-2022/CVE-2022-26965.md
+        - CVE-2022-28060: cves/CVE-2022/CVE-2022-28060.md
+        - CVE-2022-28512: cves/CVE-2022/CVE-2022-28512.md
+        - CVE-2022-28525: cves/CVE-2022/CVE-2022-28525.md
+        - CVE-2022-29464: cves/CVE-2022/CVE-2022-29464.md
+        - CVE-2022-30887: cves/CVE-2022/CVE-2022-30887.md
+        - CVE-2022-32991: cves/CVE-2022/CVE-2022-32991.md
       - CVE-2017:
-        - cves/CVE-2017/CVE-2017-0143.md
+        - CVE-2017-0143: cves/CVE-2017/CVE-2017-0143.md
       - CVE-2016:
-        - cves/CVE-2016/CVE-2016-5195.md
+        - CVE-2016-5195: cves/CVE-2016/CVE-2016-5195.md
   - VulnHub:
       - vulnhub/index.md
       - vulnhub/Jarbas-1.md
