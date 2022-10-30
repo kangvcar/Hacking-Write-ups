@@ -134,7 +134,7 @@ nav:
       - CVE-2017:
         - cves/CVE-2017/CVE-2017-0143.md
       - CVE-2016:
-        - CVE-2016-5195 Dirty Cow: cves/CVE-2016/CVE-2016-5195.md
+        - cves/CVE-2016/CVE-2016-5195.md
   - VulnHub:
       - vulnhub/index.md
       - vulnhub/Jarbas-1.md
