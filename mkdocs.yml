@@ -145,6 +145,8 @@ nav:
       - Nezuko: vulnhub/Nezuko.md
   - HackTheBox:
       - hackthebox/index.md
+      - hackthebox/Nibbles.md
+      - hackthebox/Node.md
   - Blogs:
       - blogs/index.md
       - SUID 提取: blogs/linux_suid.md
