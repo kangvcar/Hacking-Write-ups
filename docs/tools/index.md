@@ -13,3 +13,5 @@ Collection of awesome tools for hacking.
 | D盾_防火墙 v2.1.6.4 | Win | [189云盘](https://cloud.189.cn/web/share?code=Mnuyqyv2aEZn)（访问码：9tsb） | 一句话免疫,主动后门拦截,SESSION保护,防WEB嗅探,防CC,防篡改,注入防御,防XSS,防提权,上传防御,未知0day防御,异 形脚本防御等等。 防止黑客入侵和提权,让服务器更安全。 |
 | Firefox 渗透便携版v52.0.2 | Win | [189云盘](https://cloud.189.cn/web/share?code=2qYBnuaMN7V3)（访问码：5ti3） | 集成了常见的脚本插件，目前市面上渗透用最好的包包，插件新且齐全，工具安全。 |
 | 御剑 v12.0 | Win | [189云盘](https://cloud.189.cn/web/share?code=MRfyM3VRR73e)（访问码：ntv3） | 御剑高速TCP全端口扫描工具 |
+| gif 一句话木马 | ALL | [蓝奏云](https://hvvyxs.lanzoue.com/imHE10f2zmkf) | 一句话木马，gif格式，可用于绕过图片二次渲染 |
+| 010Editor | Win | [蓝奏云](https://hvvyxs.lanzoue.com/ivYEq0f2zn4f) | 010 Editor 是一款专业的文本编辑器和十六进制编辑器 |
