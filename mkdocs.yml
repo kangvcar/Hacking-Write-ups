@@ -151,6 +151,7 @@ nav:
       - blogs/index.md
       - 入门SQL注入: blogs/sql_inject.md
       - 进阶SQL注入: blogs/advance_sql_inject.md
+      - 文件上传漏洞: blogs/file_upload.md
       - SUID 提取: blogs/linux_suid.md
       - SUDO 提权: blogs/linux_sudo.md
       - PHP 伪协议: blogs/php_filter.md
