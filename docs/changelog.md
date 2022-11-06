@@ -2,6 +2,10 @@
 
 ## Hacking Write-ups
 
+### 2022-11-05
+
+- [x] 更新 HackTheBox Write-ups : Node, Nibbles
+
 ### 2022-10-30
 - [x] 添加栏目 Blogs，Tools
 - [x] 更新 CVE-2016-5195, IMF, Jarbas 1.0, Lampiao 1.0, Wakanda 1.0, WordPress2, Nezuko
