@@ -89,7 +89,7 @@
     - MySQL：`You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near “1” LIMIT 0,1’ at line 1` （关键字：MySQL）
 - 基于特有函数 / 语句判断
     
-    ![Untitled](Week1%20SQL%20%E6%B3%A8%E5%85%A5%20e4180dff4f7848cfbd5721d8fa0fd301/Untitled.png)
+    ![sqlinject](./images/sql_inject-1.png)
     
 - 基于特有数据表判断
     - Oracle：`and (select count(*) from sys.user_tables)>0`
