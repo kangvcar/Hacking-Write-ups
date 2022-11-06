@@ -10,7 +10,7 @@
 
 ![](./images/file_upload-0.png)
 
-### ****上传漏洞类型判断****
+### 上传漏洞类型判断
 
 ![](./images/file_upload-1.png)
 
