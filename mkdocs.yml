@@ -149,6 +149,7 @@ nav:
       - hackthebox/Node.md
   - Blogs:
       - blogs/index.md
+      - 入门SQL注入: blogs/sql_inject.md
       - 进阶SQL注入: blogs/advance_sql_inject.md
       - SUID 提取: blogs/linux_suid.md
       - SUDO 提权: blogs/linux_sudo.md
