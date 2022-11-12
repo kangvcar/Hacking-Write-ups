@@ -134,6 +134,7 @@ nav:
         - CVE-2022-32991: cves/CVE-2022/CVE-2022-32991.md
       - CVE-2021:
         - CVE-2021-44228: cves/CVE-2021/CVE-2021-44228.md
+        - CVE-2021-2109: cves/CVE-2021/CVE-2021-2109.md
       - CVE-2017:
         - CVE-2017-0143: cves/CVE-2017/CVE-2017-0143.md
       - CVE-2016:

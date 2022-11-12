@@ -4,7 +4,7 @@
 
 ### 2022-11-11
 
-- [x] 更新 CVE-2021-44228
+- [x] 更新 [CVE-2021-44228](cves/CVE-2021/CVE-2021-44228.md),[CVE-2021-2109](cves/CVE-2021/CVE-2021-2109.md)
 - [x] 更新 [入门SQL注入](blogs/sql_inject.md)，[进阶SQL注入](blogs/advance_sql_inject.md)，[文件上传漏洞](blogs/file_upload.md)，[MS SQL 注入](blogs/mssql_inject.md)，[MS SQL 报错注入](blogs/mssql_error_inject.md)，[MS SQL 注入提权](blogs/mssql_inject.md)
 - [x] 添加 [Best Book Lists](books.md)
 
