@@ -158,6 +158,7 @@ nav:
       - SUID 提取: blogs/linux_suid.md
       - SUDO 提权: blogs/linux_sudo.md
       - PHP 伪协议: blogs/php_filter.md
+      - MS SQL 注入: blogs/mssql_inject.md
   - Tools:
       - tools/index.md
   - Channel: https://t.me/s/hackingwp
