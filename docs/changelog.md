@@ -1,6 +1,8 @@
 # Changelog
 
-## Hacking Write-ups
+### 2022-11-12
+
+- [x] 更新了 [LDAP 注入漏洞](blogs/ldap_inject.md)
 
 ### 2022-11-11
 
