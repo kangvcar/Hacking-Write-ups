@@ -2,7 +2,7 @@
 
 ### 2022-11-12
 
-- [x] 更新了 [LDAP 注入漏洞](blogs/ldap_inject.md)，[CVE-2020-14882](cves/CVE-2020/CVE-2020-14882.md)
+- [x] 更新了 [LDAP 注入漏洞](blogs/ldap_inject.md)，[CVE-2020-14882](cves/CVE-2020/CVE-2020-14882.md)，[CVE-2017-10271](cves/CVE-2017/CVE-2017-10271.md)
 
 ### 2022-11-11
 
