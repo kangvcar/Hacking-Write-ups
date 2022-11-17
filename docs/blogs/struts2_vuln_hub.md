@@ -4,6 +4,8 @@
 
 该漏洞是由于 WebWork 2.1+ 和 Struts 2 的 `altSyntax` 特性引起的。 `altSyntax` 特性允许将 OGNL 表达式插入文本字符串并进行递归处理。这允许恶意用户通过 HTML 文本字段提交一个包含 OGNL 表达式的字符串，**如果表单验证失败，服务器将执行该表达式。**
 
+官方公告：[S2-001](https://cwiki.apache.org/confluence/display/WW/S2-001)
+
 ### 影响版本
 
 - [x] WebWork 2.1 (with altSyntax enabled)
@@ -90,6 +92,8 @@ s2-005 漏洞的起源源于 s2-003（受影响版本：低于 Struts2.0.12）�
 2. 在 S2-003 struts2 添加安全模式（沙盒）之后
 3. 在 S2-005 中，使用 OGNL 表达式关闭安全模式并再次绕过
 
+官方公告：[S2-005](https://cwiki.apache.org/confluence/display/WW/S2-005)
+
 ### 影响版本
 
 - [x] Struts 2.0.0 - 2.1.8.1
@@ -143,6 +147,8 @@ redirect:${%23req%3d%23context.get(%27co%27%2b%27m.open%27%2b%27symphony.xwo%27%
 
 例如 age 是来自于用户输入，但是传递了一个非整数而导致错误，struts 会将用户的输入当作 OGNL 表达式执行，从而导致了漏洞。
 
+官方公告：[S2-007](https://cwiki.apache.org/confluence/display/WW/S2-007)
+
 ### 影响版本
 
 - [x] Struts 2.0.0 - 2.2.3
@@ -181,6 +187,8 @@ name=a&email=a&age=%27+%2B+%28%23_memberAccess%5B%22allowStaticMethodAccess%22%5
 
 S2-008 还是对 S2-003 的绕过，通过 S2-003/S2-005 ，Struts 2 为了阻止攻击者在参数中植入恶意 OGNL，设置了 `xwork.MethodAccessor.denyMethodExecution` 以及 `SecurityMemberAccess.allowStaticMethodAccess` ，并使用白名单正则 `[a-zA-Z0-9\.][()_']+` 来匹配参数中的恶意调用，但是在一些特殊情况下，这些防御还是可以被绕过。Cookie 拦截器错误配置可造成 OGNL 表达式执行；在 struts2 应用开启 devMode 模式后会有多个调试接口能够直接查看对象信息或直接执行命令；官方文档提出了 4 种绕过防御的手段，其中关注比较多的是 devMode 模式导致的绕过。
 
+官方公告：[S2-008](https://cwiki.apache.org/confluence/display/WW/S2-008)
+
 ### 影响版本
 
 - [x] ，Struts 2.1.0 - 2.3.1
@@ -216,6 +224,8 @@ ParametersInterceptor 拦截器只检查传入的参数名是否合法，不会�
 OGNL 提供了广泛的表达式评估功能等功能。该漏洞允许恶意用户绕过 ParametersInterceptor 内置的所有保护（正则表达式，拒绝方法调用），从而能够将任何暴露的字符串变量中的恶意表达式注入进行进一步评估。
 在 S2-003 和 S2-005 中已经解决了类似的行为，但事实证明，基于列入可接受的参数名称的结果修复仅部分地关闭了该漏洞。
 ParametersInterceptor 中的正则表达式将 top ['foo']（0）作为有效的表达式匹配，OGNL 将其作为（top ['foo']）（0）处理，并将“foo”操作参数的值作为 OGNL 表达式求值。这使得恶意用户将任意的 OGNL 语句放入由操作公开的任何 String 变量中，并将其评估为 OGNL 表达式，并且由于 OGNL 语句在 HTTP 参数中，攻击者可以使用黑名单字符（例如＃）禁用方法执行并执行任意方法，绕过 ParametersInterceptor 和 OGNL 库保护。
+
+官方公告：[S2-009](https://cwiki.apache.org/confluence/display/WW/S2-009)
 
 ### 影响版本
 
@@ -268,6 +278,8 @@ docker-compose up -d
 </package>
 ```
 
+官方公告：[S2-012](https://cwiki.apache.org/confluence/display/WW/S2-012)
+
 ### 影响版本
 
 - [x] Struts 2.1.0 - 2.3.13
@@ -310,6 +322,8 @@ Struts2 标签中 <s:a> 和 <s:url> 都包含一个 includeParams 属性，其�
 例如 vulhub 靶场中的 index.js 文件中有如下代码：
 
 ![s2-013-4](images/s2-013-4.png)
+
+官方公告：[S2-013](https://cwiki.apache.org/confluence/display/WW/S2-013)
 
 ### 影响版本
 
@@ -357,6 +371,8 @@ Struts2 返回结果时，将用户可控的参数拿来解析，就会导致漏
 
 其中还可以使用多个 `*` 进行匹配，例如：`*_*`，这样就可以使用 `{1}` 和 `{2}` 来获取其中的值。
 
+官方公告：[S2-015](https://cwiki.apache.org/confluence/display/WW/S2-015)
+
 ### 影响版本
 
 - [x] Struts 2.0.0 - 2.3.14.2
@@ -384,6 +400,8 @@ docker-compose up -d
 ## S2-016
 
 Struts2 提供了在参数中使用 `action:`、`redirect:`、`redirectAction:` 前缀指定应用程序重定向路径或 action 的功能，处理重定向结果时没有过滤直接使用 OGNL 解析道导致出现漏洞。
+
+官方公告：[S2-016](https://cwiki.apache.org/confluence/display/WW/S2-016)
 
 ### 影响版本
 
@@ -414,6 +432,8 @@ docker-compose up -d
 ## S2-019
 
 要求开发者模式，且 PoC 第一个参数是 `debug`，触发点在 `DebuggingInterceptor` 上，查看 `intercept` 函数，从 `debug` 参数获取调试模式，如果模式是 `command`，则把 `expression` 参数放到 `stack.findValue` 中，最终放到了 `ognl.getValue` 中。
+
+官方公告：[S2-019](https://cwiki.apache.org/confluence/display/WW/S2-019)
 
 ### 影响版本
 
@@ -461,6 +481,8 @@ Struts2 的标签库使用 OGNL 表达式来访问 `ActionContext` 中的对象�
 
 Struts2 会解析 value 中的值，并当作 OGNL 表达式进行执行，获取到 `parameters` 对象的 `msg` 属性。S2-029 依然是依靠 OGNL 进行远程代码执行。
 
+官方公告：[S2-029](https://cwiki.apache.org/confluence/display/WW/S2-029)
+
 ### 影响版本
 
 - [x] Struts 2.0.0 - 2.3.24.1 (except 2.3.20.3)
@@ -488,6 +510,8 @@ docker run -d -p 8080:8080 medicean/vulapps:s_struts2_s2-029
 ## S2-032
 
 在 DMI 开启时，使用 `method` 前缀可以导致任意代码执行漏洞。当启用动态方法调用时，可以传递可用于在服务器端执行任意代码的恶意表达式。 `method:Action` 前缀去调用声明为 `public` 的函数，只不过在低版本中 Strtus2 不会对 `name` 方法值做 OGNL 计算，而在高版本中会。
+
+官方公告：[S2-032](https://cwiki.apache.org/confluence/display/WW/S2-032)
 
 ### 影响版本
 
@@ -526,6 +550,8 @@ docker-compose up -d
 ## S2-045
 
 在使用基于 Jakarta 插件的文件上传功能时，有可能存在远程命令执行。恶意用户可在上传文件时通过修改 HTTP 请求头中的 Content—Type 值来触发该漏洞，进而执行系统命令。
+
+官方公告：[S2-045](https://cwiki.apache.org/confluence/display/WW/S2-045)
 
 ### 影响版本
 
@@ -567,6 +593,8 @@ Content-Type: %{(#_='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER
 攻击者通过设置 `Content-Disposition` 的 `filename` 字段或者设置 `Content-Length` 超过 2G 这两种方式来触发异常并导致 `filename` 字段的 OGNL 表达式得到执行从而达到远程攻击的目的。该漏洞与 S2-045 漏洞成因一样，只是漏洞利用的字段发生了改变。
 
 S2-045 是在 `Content-Type` 值注入 ognl 表达式从而引起解析异常，S2-046 则是在上传文件的 `Content-Disposition` 中的 `filename` 参数存在空字节，在检查时抛出异常，从而进入 `buildErrorMessage()` 方法。实则 S2-045 和 S2-046 漏洞原理相同。
+
+官方公告：[S2-046](https://cwiki.apache.org/confluence/display/WW/S2-046)
 
 ### 影响版本
 
@@ -616,6 +644,8 @@ nc -lvnp 4444
 ## S2-048
 
 Apache Struts2 2.3.x 系列启用了 `struts2-struts1-plugin` 插件并且存在 `struts2-showcase` 目录,其漏洞成因是当 `ActionMessage` 接收客户可控的参数数据时，由于后续数据拼接传递后处理不当导致任意代码执行。
+
+官方公告：[S2-048](https://cwiki.apache.org/confluence/display/WW/S2-048)
 
 ### 影响版本
 
@@ -680,6 +710,8 @@ jsonlib 无法引入任意对象，而 xstream 在默认情况下是可以引入
 ```
 
 所以，我们可以通过反序列化引入任意类造成远程命令执行漏洞，只需要找到一个在 Struts2 库中适用的 gedget。
+
+官方公告：[S2-052](https://cwiki.apache.org/confluence/display/WW/S2-052)
 
 ### 影响版本
 
@@ -775,6 +807,8 @@ Content-Length: 2415
 
 Struts2 在使用 `Freemarker` 模板引擎的时候，同时允许解析 OGNL 表达式。导致用户输入的数据本身不会被 OGNL 解析，但由于被 `Freemarker` 解析一次之后变成了一个表达式，被 OGNL 解析第二次，导致任意命令执行漏洞。
 
+官方公告：[S2-053](https://cwiki.apache.org/confluence/display/WW/S2-053)
+
 ### 影响版本
 
 - [x] Struts 2.0.1 - 2.3.33
@@ -810,6 +844,8 @@ redirectUri=%25%7B%28%23dm%3D%40ognl.OgnlContext%40DEFAULT_MEMBER_ACCESS%29.%28%
 2. `action` 元素未设置 `namespace` 属性，或使用了通配符
 
 `namespace` 将由用户从 `uri` 传入，并作为 OGNL 表达式计算，最终造成任意命令执行漏洞。
+
+官方公告：[S2-057](https://cwiki.apache.org/confluence/display/WW/S2-057)
 
 ### 影响版本
 
@@ -863,6 +899,8 @@ urlencode 后
 
 Struts2 会对某些标签属性（比如 `id`，其他属性有待寻找）的属性值进行二次表达式解析，当这些标签属性中包含了 `%{xx}` 且 `xx` 用户可控，则在渲染该标签时可造成 ognl 表达式执行。
 
+官方公告：[S2-059](https://cwiki.apache.org/confluence/display/WW/S2-059)
+
 ### 影响版本
 
 - [X] Struts 2.0.0 - 2.5.20
@@ -914,6 +952,8 @@ res2 = requests.post(url, data=data2)
 ## S2-061
 
 S2-061 是对 S2-059 沙盒进行的绕过。依旧是由于标签中使用 %{} 导致的安全漏洞。
+
+官方公告：[S2-061](https://cwiki.apache.org/confluence/display/WW/S2-061)
 
 ### 影响版本
 
