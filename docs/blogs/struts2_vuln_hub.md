@@ -1023,6 +1023,7 @@ Content-Disposition: form-data; name="id"
 
 ## Ref
 
+- [Struts2 Security Bulletins](https://cwiki.apache.org/confluence/display/WW/Security+Bulletins)
 - [Struts2 漏洞复现集合-Freebuf](https://www.freebuf.com/articles/web/280245.html)
 - [Struts2 漏洞集合分析与梳理-跳跳糖](https://tttang.com/archive/1583/#toc_0x00-s2-001)
 - [Struts2 系列漏洞调试总结-素十八](https://su18.org/post/struts2-5/)
