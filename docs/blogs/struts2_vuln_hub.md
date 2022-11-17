@@ -1019,6 +1019,8 @@ Content-Disposition: form-data; name="id"
 
 ## Tools
 
+- [Vulmap](https://github.com/zhzyker/vulmap): Vulmap 是一款 web 漏洞扫描和验证工具, 可对 webapps 进行漏洞扫描, 并且具备漏洞验证功能
+- [Struts2-Scan](https://github.com/HatBoy/Struts2-Scan): Struts2全漏洞扫描利用工具
 - [K8 Struts2 EXP 综合漏洞利用工具](https://k8gege.org/p/ab3e87f7.html)
 
 ## Ref
@@ -1027,3 +1029,4 @@ Content-Disposition: form-data; name="id"
 - [Struts2 漏洞复现集合-Freebuf](https://www.freebuf.com/articles/web/280245.html)
 - [Struts2 漏洞集合分析与梳理-跳跳糖](https://tttang.com/archive/1583/#toc_0x00-s2-001)
 - [Struts2 系列漏洞调试总结-素十八](https://su18.org/post/struts2-5/)
+- [Struts2 历史RCE漏洞 EXP汇总 常用工具流量特征分析](https://xz.aliyun.com/t/4607)
