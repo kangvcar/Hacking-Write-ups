@@ -592,7 +592,7 @@ Content-Type: %{(#_='multipart/form-data').(#dm=@ognl.OgnlContext@DEFAULT_MEMBER
 
 攻击者通过设置 `Content-Disposition` 的 `filename` 字段或者设置 `Content-Length` 超过 2G 这两种方式来触发异常并导致 `filename` 字段的 OGNL 表达式得到执行从而达到远程攻击的目的。该漏洞与 S2-045 漏洞成因一样，只是漏洞利用的字段发生了改变。
 
-S2-045 是在 `Content-Type` 值注入 ognl 表达式从而引起解析异常，S2-046 则是在上传文件的 `Content-Disposition` 中的 `filename` 参数存在空字节，在检查时抛出异常，从而进入 `buildErrorMessage()` 方法。实则 S2-045 和 S2-046 漏洞原理相同。
+S2-045 是在 `Content-Type` 值注入 OGNL 表达式从而引起解析异常，S2-046 则是在上传文件的 `Content-Disposition` 中的 `filename` 参数存在空字节，在检查时抛出异常，从而进入 `buildErrorMessage()` 方法。实则 S2-045 和 S2-046 漏洞原理相同。
 
 官方公告：[S2-046](https://cwiki.apache.org/confluence/display/WW/S2-046)
 
@@ -897,7 +897,7 @@ urlencode 后
 
 ## S2-059
 
-Struts2 会对某些标签属性（比如 `id`，其他属性有待寻找）的属性值进行二次表达式解析，当这些标签属性中包含了 `%{xx}` 且 `xx` 用户可控，则在渲染该标签时可造成 ognl 表达式执行。
+Struts2 会对某些标签属性（比如 `id`，其他属性有待寻找）的属性值进行二次表达式解析，当这些标签属性中包含了 `%{xx}` 且 `xx` 用户可控，则在渲染该标签时可造成 OGNL 表达式执行。
 
 官方公告：[S2-059](https://cwiki.apache.org/confluence/display/WW/S2-059)
 
