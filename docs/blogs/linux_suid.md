@@ -6,6 +6,8 @@ GTFOBins 是一个非常有用的项目，它提供了一些 Linux 系统上的 
 
 有了上面的项目，你可以忽略本文了。哈哈:) 本文罗列了一些我在渗透测试中遇到的 SUID 提权方法。
 
+*同类还有个 Windows 提权的项目: [LOLBAS](https://lolbas-project.github.io/)*
+
 ## SUID
 
 SUID (Set UID)是 Linux 中的一种特殊权限。用户运行某个程序时，若该程序有 SUID 权限，那么程序运行为进程时，进程的属主不是发起者，而是程序文件所属的属主。但是 SUID 权限的设置只针对二进制可执行文件（对应 windows 下的 exe 文件），对于非可执行文件设置 SUID 没有意义。
