@@ -1,5 +1,9 @@
 # Changelog
 
+### 2022-11-28
+
+* [x] 更新了 [Redis 未授权访问](blogs/redis_pwn.md)
+
 ### 2022-11-15
 
 * [x] 更新了[Struts2 系列命令执行漏洞集合](blogs/struts2_vuln_hub.md)
