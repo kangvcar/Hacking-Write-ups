@@ -164,6 +164,7 @@ nav:
       - LDAP 注入漏洞: blogs/ldap_inject.md
       - Struts2 系列命令执行漏洞集合: blogs/struts2_vuln_hub.md
       - Redis 未授权访问: blogs/redis_pwn.md
+      - Drupal 漏洞集合: blogs/drupal_vuln_hub.md
   - Tools:
       - tools/index.md
   - Channel: https://t.me/s/hackingwp
